@@ -1,4 +1,10 @@
 <?php
 
+require 'src/controllers/products.php';
 
-echo "Hello world";
+
+$controller = new Products();
+
+$controller->index();
+
+
