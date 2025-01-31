@@ -10,4 +10,9 @@ class Products
 
         require_once 'views/products_index.php';
     }
+
+    public function show()
+    {
+        require_once 'views/products_show.php';
+    }
 }
