@@ -2,10 +2,20 @@
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-$segments = explode('/', $path);
+require 'src/router.php';
+$router = new Router();
 
-$action = $segments[2];
-$controller = $segments[1];
+$router->get('/', ['controller' => 'home', 'action' => 'index']);
+$router->get('/products', ['controller' => 'products', 'action' => 'index']);
+
+$params = $router->match($path);
+
+if($params == false) {
+    exit("Page not found");
+}
+
+$action = $params['action'];
+$controller = $params['controller'];
 
 require "src/controllers/$controller.php";
 
