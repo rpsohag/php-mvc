@@ -7,8 +7,11 @@ spl_autoload_register(function (string $class_name) {
 });
 $router = new Framework\Router();
 
-$router->get('/', ['controller' => 'home', 'action' => 'index']);
-$router->get('/products', ['controller' => 'products', 'action' => 'index']);
+$router->add("/product/{slug:[\w-]+}", ['controller' => 'products', 'action' => 'show']);
+$router->add("/{controller}/{id:\d+}/{action}");
+$router->add("/{controller}/{action}");
+// $router->get('/', ['controller' => 'home', 'action' => 'index']);
+// $router->get('/products', ['controller' => 'products', 'action' => 'index']);
 
 $params = $router->match($path);
 
