@@ -13,8 +13,14 @@ class Products
         require_once 'views/products_index.php';
     }
 
-    public function show()
+    public function show(string $id)
     {
+        var_dump($id);
         require_once 'views/products_show.php';
+    }
+
+    public function showPage(string $title, string $id, string $page)
+    {
+        
     }
 }

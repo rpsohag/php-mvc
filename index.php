@@ -7,23 +7,15 @@ spl_autoload_register(function (string $class_name) {
 });
 $router = new Framework\Router();
 
+$router->add("/admin/{controller}/{action}", [ 'namespace' => 'Admin']);
+$router->add("/{title}/{id:\d+}/{page:\d+}", ['controller' => 'products', 'action' => 'showPage']);
 $router->add("/product/{slug:[\w-]+}", ['controller' => 'products', 'action' => 'show']);
 $router->add("/{controller}/{id:\d+}/{action}");
 $router->add("/{controller}/{action}");
 // $router->get('/', ['controller' => 'home', 'action' => 'index']);
 // $router->get('/products', ['controller' => 'products', 'action' => 'index']);
 
-$params = $router->match($path);
+$dispatcher = new Framework\Dispatcher($router);
 
-if($params == false) {
-    exit("Page not found");
-}
-
-$action = $params['action'];
-$controller = "App\Controllers\\" . ucwords($params['controller']);
-
-
-$controller_object = new $controller();
-
-$controller_object->$action();
+$dispatcher->handle($path);
 
